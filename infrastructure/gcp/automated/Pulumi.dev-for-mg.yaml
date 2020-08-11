@@ -1,0 +1,4 @@
+secretsprovider: gcpkms://projects/nifty-bindery-242115/locations/global/keyRings/cloud-build/cryptoKeys/pulumi
+encryptedkey: CiQAz0GPP7fnbWAJVH6Fu+e4VkFNNK7A/Oc9D0vJA+oSz06sBU4SSQANLlq2K9726Mc/q8ceIGcSSxrXGTL3fNyw4L7csgE2IgEgNsR42JZR4GVLdNEdcvdnXFojOg8F3P0KWny3GW29Epaxrv+0pQU=
+config:
+  gcp:project: nifty-bindery-242115
