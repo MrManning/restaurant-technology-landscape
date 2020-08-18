@@ -8,6 +8,19 @@ const name = pulumi.getProject();
 const stack = pulumi.getStack();
 
 const gcpProject = config.get("gcp:project");
+const accessToken = config.requireSecret("access-token");
+
+// Create a GCP resource (Secret Manager for Pulumi API KEY)
+const secret = new gcp.secretmanager.Secret("secret-for-pulumi", {
+  replication: {
+    automatic: true
+  },
+  secretId: "secret-for-pulumi",
+});
+const secretVersion = new gcp.secretmanager.SecretVersion("secret-version-for-pulumi", {
+  secret: secret.id,
+  secretData: accessToken,
+});
 
 // Create a GCP resource (Cloud Build for infrastructure (this))
 const infrastructureFeatureTrigger = new gcp.cloudbuild.Trigger(name + "-feature", {
@@ -21,7 +34,7 @@ const infrastructureFeatureTrigger = new gcp.cloudbuild.Trigger(name + "-feature
     }
   },
   includedFiles: [
-    '/infrastructure/gcp/site/**'
+    'infrastructure/gcp/site/**'
   ],
   // ignoredFiles: [
   //   '/website/**'
@@ -43,7 +56,7 @@ const infrastructureProvisionTrigger = new gcp.cloudbuild.Trigger(name + "-provi
     }
   },
   includedFiles: [
-    '/infrastructure/gcp/site/**'
+    'infrastructure/gcp/site/**'
   ],
   // ignoredFiles: [
   //   '/website/**'

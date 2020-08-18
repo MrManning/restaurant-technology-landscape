@@ -1,4 +1,7 @@
 steps:
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: 'bash'
+  args: [ '-c', "gcloud secrets versions access latest --secret=secret-for-pulumi --format='get(payload.data)' | tr '_-' '/+' | base64 -d > pulumi-data.txt" ]
 - name: 'gcr.io/cloud-builders/yarn:current'
   entrypoint: '/bin/sh'
   args:
@@ -7,8 +10,3 @@ steps:
   env:
   - 'BUILD_TYPE=$_BUILD_TYPE'
   - 'BUILD_STACK=$_BUILD_STACK'
-  secretEnv: [ 'PULUMI_ACCESS_TOKEN' ]
-secrets:
-- kmsKeyName: projects/nifty-bindery-242115/locations/global/keyRings/cloud-build/cryptoKeys/pulumi
-  secretEnv:
-    PULUMI_ACCESS_TOKEN: 'CiQAz0GPPyQ9HjLzlE1Bf7XZ57V2NimgMseIplc7RP/KxOmBvHISVQANLlq2Ky1WJBSv2HXrrW88A8Z/36mBJ5eVgv+l/yGJG/0Ry59CZPFrL6b/xDFXhVwisa6Tlcsum9x9Bgmxealxl+etDxJs2+8fFjFGEUZMo0sf7yc='

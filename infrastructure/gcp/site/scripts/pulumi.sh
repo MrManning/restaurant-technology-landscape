@@ -11,6 +11,8 @@ export PATH=$PATH:$HOME/.pulumi/bin
 # Restore npm dependencies for our infra app.
 yarn install
 
+PULUMI_ACCESS_TOKEN=$(<pulumi-data.txt)
+
 # Login into pulumi. This will require the PULUMI_ACCESS_TOKEN environment variable.
 pulumi login
 

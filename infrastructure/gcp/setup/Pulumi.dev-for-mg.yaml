@@ -4,3 +4,5 @@ config:
   gcp:project: nifty-bindery-242115
   gcp:region: europe-west1
   gcp:zone: b
+  restaurant-technology-landscape-setup:access-token:
+    secure: v1:Dnoer1RfBUrhCWao:QMCEVBh0l594Y0O9mcS5z4hpB+Y8lxtDeRumITo18U4eotG6GZW8SD+vcsIz4+yMq8WzO35C1XR5QFl7

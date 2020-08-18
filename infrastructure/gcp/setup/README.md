@@ -13,28 +13,15 @@ The following software is needed to develop this project:
 
 First Time Execution Steps:
 * [Enable the Cloud Build API](https://console.cloud.google.com/marketplace/details/google/cloudbuild.googleapis.com) for your project.
-* Followed steps 1 and 2 of[Using Cloud KMS](https://cloud.google.com/cloud-build/docs/securing-builds/use-encrypted-secrets-credentials#encrypt_credentials) to secure builds for your project.
-* Execute the following:
-  ``` bash
-  gcloud kms keyrings create cloud-build --location global
-  gcloud kms keys create pulumi \
-    --location global \
-    --keyring cloud-build \
-    --purpose encryption
-  ```
+* Followed steps 1 and 2 of[Using Secret Manager](https://cloud.google.com/cloud-build/docs/securing-builds/use-encrypted-secrets-credentials#store_credentials) to secure builds for your project. To Note GitHub does not like KMS values existing in a repository.
 * Created and copy a [Pulumi](https://app.pulumi.com/) access token under user profile -> settings.
-* Execute the following (replace `pul-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa` with appropriate value) within the same folder as this file.:
-  ``` bash
-  echo -n pul-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | gcloud kms encrypt --plaintext-file=- \
-     --ciphertext-file=- --location=global --keyring=cloud-build \
-     --key=pulumi | base64 | xargs -I {} pulumi config set build:pulumi {}
-  ```
-* Execute the following:
+* Execute the following (replace `YOUR_PULUMI_API_KEY_HERE` with appropriate value from previous bullet point) within the same folder as this file:
   ``` bash
   pulumi stack init $YOUR_NAME
   pulumi config set gcp:project $YOUR_PROJECT_HERE
   pulumi config set gcp:region europe-west1
   pulumi config set gcp:zone b
+  pulumi config set --secret access-token $YOUR_PULUMI_API_KEY_HERE
   pulumi up
   ```
   Initial creation will fail, please follow URL/link to connect repository:
