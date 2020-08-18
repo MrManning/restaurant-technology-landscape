@@ -1,4 +1,4 @@
-# Restaurant Technology Landscape
+# Restaurant Technology Landscape Website
 
 ## Local Setup
 
