@@ -1,5 +1,5 @@
 {
-    "name": "restaurant-technology-landscape-automated",
+    "name": "restaurant-technology-landscape-site-intrastructure",
     "main": "index.js",
     "dependencies": {
         "@pulumi/pulumi": "^2.0.0",
