@@ -3,7 +3,7 @@ steps:
   entrypoint: '/bin/sh'
   args:
   - '-c'
-  - 'chmod +x ./infrastructure/gcp/once/scripts/*.sh && cd ./infrastructure/gcp/once && ./scripts/pulumi.sh'
+  - 'chmod +x ./infrastructure/gcp/site/scripts/*.sh && cd ./infrastructure/gcp/site && ./scripts/pulumi.sh'
   env:
   - 'BUILD_TYPE=$_BUILD_TYPE'
   - 'BUILD_STACK=$_BUILD_STACK'

@@ -8,9 +8,6 @@ set -e -x
 curl -L https://get.pulumi.com/ | bash
 export PATH=$PATH:$HOME/.pulumi/bin
 
-node --version
-npm --version
-
 # Restore npm dependencies for our infra app.
 yarn install
 
@@ -18,7 +15,7 @@ yarn install
 pulumi login
 
 # Select the appropriate stack.
-pulumi stack select matthew-green-nandos/restaurant-technology-landscape-automated/$BUILD_STACK
+pulumi stack select matthew-green-nandos/restaurant-technology-landscape-site/$BUILD_STACK
 
 case $BUILD_TYPE in
   PullRequest)
