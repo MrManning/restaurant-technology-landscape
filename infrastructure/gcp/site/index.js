@@ -1,83 +1,20 @@
 "use strict";
+
 const pulumi = require("@pulumi/pulumi");
 const gcp = require("@pulumi/gcp");
+const website = require("./website");
 
 const name = pulumi.getProject();
+const config = new pulumi.Config();
 
-// Create a GCP resource (Storage Bucket For live website)
-const websiteBucket = new gcp.storage.Bucket(name + "-live-website", {
-  website: {
-    mainPageSuffix: "index.html",
-    notFoundPage: "404.html",
-  },
-});
-const websiteBackend = new gcp.compute.BackendBucket(name + "-live-cdn",
-{
-  description: "Contains restaurant technology landscape site",
-  bucketName: websiteBucket.name,
-  enableCdn: true,
+// const region = config.get("gcp:region");
+const signature = config.requireSecret("signature");
+const domain = "open-restaurant.io";
+
+const zone = new gcp.dns.ManagedZone(name + "-zone", {
+  description: "Open Resturant DNS zone",
+  dnsName: domain + ".",
 });
 
-// Create a GCP resource (Storage Bucket For feature website)
-const featureBucket = new gcp.storage.Bucket(name + "-feature-website", {
-  forceDestroy: true,
-  website: {
-    mainPageSuffix: "index.html",
-    notFoundPage: "404.html",
-  },
-});
-const featureBackend = new gcp.compute.BackendBucket(name + "-feature-cdn",
-{
-  description: "Contains restaurant technology landscape site",
-  bucketName: featureBucket.name,
-  enableCdn: true,
-});
-
-// Create a GCP resource (Cloud build to distribute to bucket upon changes)
-const websiteFeatureTrigger = new gcp.cloudbuild.Trigger(name + "-website-feature", {
-  description: "Pulumi preview check of a proposed feature.",
-  filename: "website/cloudbuild.yaml",
-  github: {
-    owner: "open-restaurant",
-    name: "restaurant-technology-landscape",
-    push: {
-      branch: "[^master]",
-    }
-  },
-  includedFiles: [
-    'website/**'
-  ],
-  ignoredFiles: [
-    'infrastructure/**'
-  ],
-  substitutions: {
-    _BUCKET_NAME: featureBucket.url,
-  },
-});  // Initial creation will fail, please follow link to connect repository
-
-const websiteProvisionTrigger = new gcp.cloudbuild.Trigger(name + "-website-provision", {
-  description: "Pulumi provisioning of infrastructure to support restaurant technology landscape",
-  filename: "website/cloudbuild.yaml",
-  github: {
-    owner: "open-restaurant",
-    name: "restaurant-technology-landscape",
-    push: {
-      branch: "master",
-    }
-  },
-  includedFiles: [
-    'website/**'
-  ],
-  ignoredFiles: [
-    'infrastructure/**'
-  ],
-  substitutions: {
-    _BUCKET_NAME: websiteBucket.url,
-  },
-});
-
-// Export the DNS name of the bucket
-exports.websiteBucket = websiteBucket.url;
-exports.websiteBackend = websiteBackend.name;
-exports.featureBucket = featureBucket.url;
-exports.featureBackend = featureBackend.name;
+const feature = website(name + "-feature", zone, "beta." + domain, signature, "[^master]");
+const live = website(name + "-live", zone, "www." + domain, signature, "master");
