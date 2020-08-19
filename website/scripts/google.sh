@@ -4,6 +4,9 @@
 set -e -x
 
 # Download and install required tools.
+# libGL shared libaray
+apt-get update
+ apt-get -y -qq install libgl1-mesa-glx
 # gridsome
 npm install --global @gridsome/cli
 
@@ -14,6 +17,3 @@ npm install --quiet
 
 # create static site to distribute
 gridsome build
-
-# mirror new site to bucket
-gsutil rsync -r -d dist gs://$BUCKET_NAME

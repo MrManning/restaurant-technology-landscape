@@ -4,5 +4,10 @@ steps:
   args:
   - '-c'
   - 'chmod +x ./website/scripts/*.sh && cd ./website && ./scripts/google.sh'
+- name: 'gcr.io/cloud-builders/gsutil'
+  entrypoint: '/bin/sh'
+  args:
+  - '-c'
+  - 'gsutil rsync -r -d ./website/dist gs://$BUCKET_NAME'
   env:
-  - 'BUCKET_NAME=$_BUCKET_NAME'
+    - 'BUCKET_NAME=$_BUCKET_NAME'
