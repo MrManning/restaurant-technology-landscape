@@ -1,5 +1,5 @@
 steps:
-- name: 'gcr.io/cloud-builders/node:current'
+- name: 'gcr.io/cloud-builders/npm:current'
   entrypoint: '/bin/sh'
   args:
   - '-c'
