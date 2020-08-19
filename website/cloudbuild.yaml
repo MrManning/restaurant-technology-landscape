@@ -8,6 +8,6 @@ steps:
   entrypoint: '/bin/sh'
   args:
   - '-c'
-  - 'gsutil rsync -a public-read -r -d website/dist $$BUCKET_NAME'
+  - 'gsutil -m rsync -a public-read -r -d website/dist $$BUCKET_NAME'
   env:
     - 'BUCKET_NAME=$_BUCKET_NAME'
