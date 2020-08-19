@@ -22,7 +22,7 @@ cd restaurant-technology-landscape
 ```
 
 ### Creating GCP Environment
-If there not an existing environment then please follow the instruction in the [infrastructure folder](./infrastructure/gcp/setup/README.md).
+If there not an existing environment then please follow the instruction in the [infrastructure folder](./infrastructure/gcp/README.md).
 
 ### Website Developement
 Please follow the instruction in the [website folder](./website/README.md).

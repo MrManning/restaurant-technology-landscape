@@ -11,17 +11,8 @@ The following software is needed to develop this project:
   * [pulumi](https://www.pulumi.com/docs/get-started/install/)
   * [GCP CLI](https://cloud.google.com/sdk/install) and a project
 
-First Time Execution Steps:
+## First Time Execution Steps:
 * Enable the [Cloud Build API](https://console.cloud.google.com/marketplace/details/google/cloudbuild.googleapis.com) for your project.
-* Enable the [Cloud KMS API](https://console.cloud.google.com/security/kms) for your project.
-* Execute the following:
-  ``` bash
-  gcloud kms keyrings create cloud-build --location global
-  gcloud kms keys create pulumi \
-    --location global \
-    --keyring cloud-build \
-    --purpose encryption
-  ```
 * Followed steps 1 and 2 of[Using Secret Manager](https://cloud.google.com/cloud-build/docs/securing-builds/use-encrypted-secrets-credentials#store_credentials) to secure builds for your project.
 * Created and copy a [Pulumi](https://app.pulumi.com/) access token under user profile -> settings.
 * Execute the following (replace `YOUR_PULUMI_API_KEY_HERE` with appropriate value from previous bullet point) within the same folder as this file:
