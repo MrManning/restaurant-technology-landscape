@@ -47,6 +47,9 @@ const websiteFeatureTrigger = new gcp.cloudbuild.Trigger(name + "-website-featur
   includedFiles: [
     'website/**'
   ],
+  ignoredFiles: [
+    'infrastructure/**'
+  ],
   substitutions: {
     _BUCKET_NAME: featureBucket.url,
   },
@@ -64,6 +67,9 @@ const websiteProvisionTrigger = new gcp.cloudbuild.Trigger(name + "-website-prov
   },
   includedFiles: [
     'website/**'
+  ],
+  ignoredFiles: [
+    'infrastructure/**'
   ],
   substitutions: {
     _BUCKET_NAME: websiteBucket.url,
