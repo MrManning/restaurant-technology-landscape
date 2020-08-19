@@ -7,7 +7,6 @@ const config = new pulumi.Config();
 const name = pulumi.getProject();
 const stack = pulumi.getStack();
 
-const gcpProject = config.get("gcp:project");
 const accessToken = config.requireSecret("access-token");
 
 // Create a GCP resource (Secret Manager for Pulumi API KEY)
