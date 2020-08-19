@@ -37,7 +37,7 @@ const websiteFeatureTrigger = new gcp.cloudbuild.Trigger(name + "-website-featur
     'website/**'
   ],
   substitutions: {
-    _BUCKET_NAME: pulumi.interpolate `${featureBackend.name}/$BRANCH_NAME`,
+    _BUCKET_NAME: pulumi.interpolate `${featureBucket.url}/$BRANCH_NAME`,
   },
 });  // Initial creation will fail, please follow link to connect repository
 
@@ -55,10 +55,12 @@ const websiteProvisionTrigger = new gcp.cloudbuild.Trigger(name + "-website-prov
     'website/**'
   ],
   substitutions: {
-    _BUCKET_NAME: websiteBackend.name,
+    _BUCKET_NAME: websiteBucket.url,
   },
 });
 
 // Export the DNS name of the bucket
-exports.websiteBucketName = websiteBucket.url;
-exports.websiteBackend = websiteBackend.urn;
+exports.websiteBucket = websiteBucket.url;
+exports.websiteBackend = websiteBackend.name;
+exports.featureBucket = featureBucket.url;
+exports.featureBackend = featureBackend.name;
