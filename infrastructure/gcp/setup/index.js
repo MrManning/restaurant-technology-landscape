@@ -58,9 +58,6 @@ const infrastructureProvisionTrigger = new gcp.cloudbuild.Trigger(name + "-provi
   includedFiles: [
     'infrastructure/gcp/site/**'
   ],
-  // ignoredFiles: [
-  //   '/website/**'
-  // ],
   substitutions: {
     _BUILD_TYPE: "",
     _BUILD_STACK: stack,
