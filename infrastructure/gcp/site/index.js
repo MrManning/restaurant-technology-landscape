@@ -5,7 +5,12 @@ const gcp = require("@pulumi/gcp");
 const name = pulumi.getProject();
 
 // Create a GCP resource (Storage Bucket For live website)
-const websiteBucket = new gcp.storage.Bucket(name + "-live-website");
+const websiteBucket = new gcp.storage.Bucket(name + "-live-website", {
+  website: {
+    mainPageSuffix: "index.html",
+    notFoundPage: "404.html",
+  },
+});
 const websiteBackend = new gcp.compute.BackendBucket(name + "-live-cdn",
 {
   description: "Contains restaurant technology landscape site",
@@ -14,7 +19,13 @@ const websiteBackend = new gcp.compute.BackendBucket(name + "-live-cdn",
 });
 
 // Create a GCP resource (Storage Bucket For feature website)
-const featureBucket = new gcp.storage.Bucket(name + "-feature-website");
+const featureBucket = new gcp.storage.Bucket(name + "-feature-website", {
+  forceDestroy: true,
+  website: {
+    mainPageSuffix: "index.html",
+    notFoundPage: "404.html",
+  },
+});
 const featureBackend = new gcp.compute.BackendBucket(name + "-feature-cdn",
 {
   description: "Contains restaurant technology landscape site",
@@ -37,7 +48,7 @@ const websiteFeatureTrigger = new gcp.cloudbuild.Trigger(name + "-website-featur
     'website/**'
   ],
   substitutions: {
-    _BUCKET_NAME: pulumi.interpolate `${featureBucket.url}/$BRANCH_NAME`,
+    _BUCKET_NAME: featureBucket.url,
   },
 });  // Initial creation will fail, please follow link to connect repository
 
