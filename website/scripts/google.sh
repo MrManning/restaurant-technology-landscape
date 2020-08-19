@@ -6,7 +6,7 @@ set -e -x
 # Download and install required tools.
 # libGL shared libaray
 apt-get update
- apt-get -y -qq install libgl1-mesa-glx
+apt-get -y -qq install libgl1-mesa-glx libxi6
 # gridsome
 npm install --global @gridsome/cli
 
