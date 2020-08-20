@@ -10,7 +10,7 @@
     "@gridsome/source-filesystem": "^0.6",
     "@gridsome/transformer-remark": "^0.6",
     "gridsome": "^0.7",
-    "vuetify": "^2.3.4"
+    "vuetify": "^2.3.9"
   },
   "devDependencies": {
     "deepmerge": "^4.2.2",

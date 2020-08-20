@@ -1,7 +1,7 @@
 module.exports = {
-  siteName: `Restaurant Technology Landscape`,
+  siteName: `Open Restaurant Technology Landscape`,
   siteDescription: 'Building a community to define a restaurant technology landscape.',
-  titleTemplate: `%s - Restaurant Technology Landscape`,
+  titleTemplate: `%s - Open Restaurant Technology Landscape`,
 
   plugins: [
     {

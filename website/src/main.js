@@ -1,6 +1,6 @@
-import DefaultLayout from '~/layouts/Default.vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import DefaultLayout from '~/layouts/Default.vue'
 
 export default function (Vue, { appOptions, head }) {
   head.htmlAttrs = { lang: 'en' }
