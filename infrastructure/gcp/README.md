@@ -16,3 +16,8 @@ To run this within your GCP project you will nned to do the following:
 * Initiate and set your GCP stack specific configuration for both:
   * [site setup](./site/README.md)
   * [manual setup](./setup/README.md)
+* Using following run the appropriate cloud build triggers:
+  ```bash
+  gcloud beta builds triggers list
+  gcloud beta builds triggers run TRIGGER_NAME
+  ```
