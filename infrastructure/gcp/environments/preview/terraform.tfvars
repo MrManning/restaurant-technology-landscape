@@ -1,0 +1,5 @@
+project = "nifty-bindery-242115"
+description  = "example desc"
+domain       = "preview.open.restaurant"
+website_name = "restaurant-technology-landscape"
+region = "europe-west1"
