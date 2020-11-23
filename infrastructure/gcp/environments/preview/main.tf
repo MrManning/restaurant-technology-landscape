@@ -4,8 +4,14 @@ provider "google" {
 }
 
 module "cloudbuild" {
-  source      = ""
+  source      = "../../modules/cloudbuild"
   name        = var.website_name
   description = var.description
   domain      = var.domain
+  project     = var.project
+  branch      = var.branch
+
+  owner      = "open-restaurant"
+  repository = "restaurant-technology-landscape"
+  filename   = "website/cloudbuild.yaml"
 }
