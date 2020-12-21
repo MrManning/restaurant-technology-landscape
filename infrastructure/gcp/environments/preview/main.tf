@@ -1,17 +1,24 @@
 provider "google" {
-  project = var.project
-  region  = var.region
+  alias = "token"
 }
 
-module "cloudbuild" {
-  source      = "../../modules/cloudbuild"
-  name        = var.website_name
-  description = var.description
-  domain      = var.domain
-  project     = var.project
-  branch      = var.branch
+data "google_service_account_access_token" "default" {
+  provider               = google.token
+  target_service_account = "terraform@${var.project}.iam.gserviceaccount.com"
+  scopes                 = ["cloud-platform"]
+  lifetime               = "1200s"
+}
 
-  owner      = "open-restaurant"
-  repository = "restaurant-technology-landscape"
-  filename   = "website/cloudbuild.yaml"
+provider "google" {
+  project      = var.project
+  region       = var.region
+  access_token = data.google_service_account_access_token.default.access_token
+}
+
+module "website_stack" {
+  source    = "../../stacks/website"
+  branch    = var.branch
+  project   = var.project
+  region    = var.region
+  subdomain = var.subdomain
 }

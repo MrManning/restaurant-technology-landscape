@@ -1,7 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "PROJECT_ID-tfstate"
-    prefix = "env/preview"
+    bucket = "preview-open-restaura-a6f67728-europe-west2-state"
+    prefix = "website"
   }
 }
- 
