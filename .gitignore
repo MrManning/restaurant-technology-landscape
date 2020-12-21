@@ -33,3 +33,6 @@ coverage
 
 # Terraform
 .terraform
+
+# Generated file
+package-lock.json
