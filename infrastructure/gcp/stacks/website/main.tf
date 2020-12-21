@@ -1,6 +1,6 @@
 locals {
   description  = "Restaurant Technology Landscape"
-  domain       = "preview.open.restaurant"
+  domain       = "open.restaurant"
   website_name = "restaurant-technology-landscape"
 }
 
@@ -25,13 +25,13 @@ module "cloudbuild_for_website" {
   branch      = var.branch
   description = local.description
   name        = local.website_name
-  project     = var.project
+  project_id  = var.project
 
   cloudbuild = "website/cloudbuild.yaml"
   owner      = "open-restaurant"
   repository = "restaurant-technology-landscape"
   include    = ["website/**"]
   substitutions = {
-    _BUCKET_NAME : module.website.bucket_url
+    _BUCKET_NAME : module.website.bucket_url,
   }
 }
